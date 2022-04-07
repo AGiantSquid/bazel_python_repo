@@ -1,0 +1,7 @@
+
+py_library(
+    name = 'acme_corp.lib1',
+    imports = ['src'],
+    srcs = glob(['src/acme_corp/lib1/*.py']),
+    visibility = ["//visibility:public"],
+)
