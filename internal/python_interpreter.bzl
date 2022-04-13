@@ -35,6 +35,7 @@ def _py_download(ctx):
     substitutions = {
         "{constraints}": constraints_str,
         "{interpreter_path}": ctx.attr.interpreter_path,
+        # "{interpreter_path}": str(ctx.path('python.exe')),
     }
 
     ctx.template(
@@ -42,6 +43,18 @@ def _py_download(ctx):
         ctx.attr._build_tpl,
         substitutions = substitutions,
     )
+
+    if ctx.attr.os == 'windows':
+        print('winwin')
+        # print(ctx.path('python.exe'))
+        # res2 = ctx.execute(['cmd', '/c', 'mklink', 'python_shortcut.exe', str(ctx.path('python.exe')).replace('/', '\\')])
+        # print(res2.stderr)
+        # print(res2.stdout)
+        print('done')
+    else:
+        print('nnnnn')
+        ctx.report_progress('wow')
+
 
     return None
 
@@ -69,7 +82,7 @@ py_download = repository_rule(
             doc = "Host architecture.",
         ),
         "interpreter_path": attr.string(
-            default = "python.exe",
+            default = "python",
             doc = "Path you'd expect the python interpreter binary to live.",
         ),
         "_build_tpl": attr.label(
