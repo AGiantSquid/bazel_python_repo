@@ -1,4 +1,4 @@
-workspace(name = "acme_corp")
+workspace(name = "acme_corp_workspace")
 
 load("//internal:python_interpreter.bzl", "py_download")
 
@@ -14,7 +14,7 @@ py_download(
     name = "py_linux_x86_64",
     arch = "x86_64",
     os = "linux",
-    sha256 = "c6d6256d13e929e77e7ee6e53470fe63ad19d173fee6d56bb1b2db",
+    sha256 = "c6d6256d13e929e77e7ee6e53470fe63ad19d173fee6d56bb1b2dbda67081543",
     urls = ["https://github.com/indygreg/python-build-standalone/releases/download/20200822/cpython-3.7.9-x86_64-unknown-linux-gnu-pgo-20200823T0036.tar.zst"],
 )
 
@@ -23,6 +23,8 @@ py_download(
     arch = "x86_64",
     os = "windows",
     interpreter_path = "python.exe",
+    files_glob = "**",
+    files_glob_exclude = "None",
     # sha256 = "e405417f50984bc5870c7e7a9f9aeb93e9d270f5ac67f667a0cd3a09439682b5",
     # urls = ["https://www.python.org/ftp/python/3.7.13/Python-3.7.13.tgz"],
     sha256 = "f1bb5edaad60d2ea1f233ff20cce237cc2d129b736dcf63f8423a15061294092",
@@ -33,7 +35,7 @@ py_download(
 register_toolchains(
     # "@py_darwin_x86_64//:toolchain",
     # "@py_linux_x86_64//:toolchain",
-    "@py_windows_x86_64//:toolchain",
+    # "@py_windows_x86_64//:toolchain",
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")

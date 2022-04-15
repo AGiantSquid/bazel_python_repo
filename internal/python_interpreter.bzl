@@ -1,11 +1,11 @@
 _OS_MAP = {
-        "darwin": "@platforms//os:osx",
-        "linux": "@platforms//os:linux",
-        "windows": "@platforms//os:windows",
+    "darwin": "@platforms//os:osx",
+    "linux": "@platforms//os:linux",
+    "windows": "@platforms//os:windows",
 }
 
 _ARCH_MAP = {
-        "x86_64": "@platforms//cpu:x86_64",
+    "x86_64": "@platforms//cpu:x86_64",
 }
 
 def _py_download(ctx):
@@ -35,6 +35,8 @@ def _py_download(ctx):
     substitutions = {
         "{constraints}": constraints_str,
         "{interpreter_path}": ctx.attr.interpreter_path,
+        "{files_glob}": ctx.attr.files_glob,
+        "{files_glob_exclude}": ctx.attr.files_glob_exclude,
         # "{interpreter_path}": str(ctx.path('python.exe')),
     }
 
@@ -82,8 +84,14 @@ py_download = repository_rule(
             doc = "Host architecture.",
         ),
         "interpreter_path": attr.string(
-            default = "python",
+            default = "bin/python3",
             doc = "Path you'd expect the python interpreter binary to live.",
+        ),
+        "files_glob": attr.string(
+            default = "install/**",
+        ),
+        "files_glob_exclude": attr.string(
+            default = "**/* *",
         ),
         "_build_tpl": attr.label(
             default = "@acme_corp//internal:BUILD.dist.bazel.tpl",

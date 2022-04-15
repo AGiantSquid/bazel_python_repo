@@ -3,7 +3,8 @@ load("@bazel_tools//tools/python:toolchain.bzl", "py_runtime_pair")
 filegroup(
     name = "files",
     # srcs = glob(["install/**"], exclude = ["**/* *"]),
-    srcs = glob(["*", "**"]),
+    # srcs = glob(["*", "**"]),
+    srcs = glob(["{files_glob}"], exclude = ["{files_glob_exclude}"]),
     # srcs = glob(["python_shortcut.*"]),
     visibility = ["//visibility:public"],
 )
