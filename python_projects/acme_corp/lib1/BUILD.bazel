@@ -5,3 +5,20 @@ py_library(
     srcs = glob(['src/acme_corp/lib1/*.py']),
     visibility = ["//visibility:public"],
 )
+
+genrule(
+  name = "create_dist",
+  srcs = [
+    ":acme_corp.lib1",
+    "setup.py",
+    "setup.cfg",
+  ],
+  outs = ["acme_corp.lib.tar.gz"],
+  cmd = """
+    set -x &&
+    pushd python_projects/acme_corp/lib1 &&
+    python setup.py sdist &&
+    popd &&
+    cp python_projects/acme_corp/lib1/dist/acme_corp.lib1* $@
+  """,
+)

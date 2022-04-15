@@ -3,6 +3,7 @@ load("@rules_python_pytest//python_pytest:defs.bzl", "py_pytest_test")
 
 py_pytest_test(
     name="unit",
+    size="small",
     srcs=glob(['*_test.py']),
     deps=[
         requirement("pytest"),
